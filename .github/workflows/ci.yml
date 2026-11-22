@@ -9,10 +9,6 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./BaseProject-main
-
     steps:
       - name: Baixar projeto
         uses: actions/checkout@v4
@@ -24,20 +20,16 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          pip install -r requirements.txt
+          pip install -r BaseProject-main/requirements.txt
 
       - name: Executar testes unitarios
         run: |
-          pytest tests/unit -v
+          pytest BaseProject-main/tests/unit -v
 
   integration-tests:
     needs: unit-tests
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: ./BaseProject-main
-
     steps:
       - name: Baixar projeto
         uses: actions/checkout@v4
@@ -49,11 +41,11 @@ jobs:
 
       - name: Instalar dependencias
         run: |
-          pip install -r requirements.txt
+          pip install -r BaseProject-main/requirements.txt
 
       - name: Executar testes de integracao
         run: |
-          pytest tests/integration -v --cov=src --cov-report=html --cov-report=term-missing
+          pytest BaseProject-main/tests/integration -v --cov=BaseProject-main/src --cov-report=html --cov-report=term-missing
 
       - name: Salvar relatorio de cobertura
         if: always()
