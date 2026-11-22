@@ -9,6 +9,10 @@ jobs:
   unit-tests:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./BaseProject-main
+
     steps:
       - name: Baixar projeto
         uses: actions/checkout@v4
@@ -29,6 +33,10 @@ jobs:
   integration-tests:
     needs: unit-tests
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./BaseProject-main
 
     steps:
       - name: Baixar projeto
@@ -52,4 +60,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: relatorio-cobertura
-          path: htmlcov/
+          path: BaseProject-main/htmlcov/
